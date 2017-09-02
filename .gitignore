@@ -1,0 +1,11 @@
+/
+.cocos-project.json
+cocos2d/
+proj.win32/
+proj.ios_mac/
+proj.win10/
+proj.win8.1-universal/
+proj.android/
+proj.android-studio/
+proj.linux/
+Resources/res/.gitkeep
