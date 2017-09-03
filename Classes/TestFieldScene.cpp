@@ -22,6 +22,11 @@ bool TestFieldScene::init()
 {
 	if (!Scene::init())return false;
 
+	Sprite* background = Sprite::create("testbackground.png");
+	background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	background->setPosition(0, 0);
+	addChild(background);
+
 	UserInput* controller=UserInput::createPlayer();
 	addChild(controller);
 

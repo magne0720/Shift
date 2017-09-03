@@ -20,14 +20,9 @@ bool UserInput::init(int mode)
 {
 	if (!Node::init())return false;
 
-	auto closeItem = MenuItemImage::create(
-		"CloseNormal.png",
-		"CloseSelected.png",
-		CC_CALLBACK_1(UserInput::menuCloseCallback, this));
-
-	auto menu = Menu::create(closeItem, NULL);
-	menu->setPosition(Vec2(100,100));
-	this->addChild(menu, 1);
+	InputButton* button = InputButton::create("attack_on_UI.png", "attack_UI.png");
+	button->setPosition(Vec2(designResolutionSize.width*0.5f, designResolutionSize.height*0.5f));
+	addChild(button);
 
 	return true;
 };

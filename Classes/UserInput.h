@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 #include "Character.h"
+#include "StaticGameDefinition.h"
+#include "InputButton.h"
 
 using namespace cocos2d;
 
