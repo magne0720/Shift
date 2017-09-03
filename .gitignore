@@ -9,3 +9,4 @@ proj.android/
 proj.android-studio/
 proj.linux/
 Resources/res/.gitkeep
+.sdkbox_packages.json
