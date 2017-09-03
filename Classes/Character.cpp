@@ -46,10 +46,10 @@ bool Character::init(PARAMETER p)
 void Character::update(float delta) 
 {
 	//ジオメトリの中があるなら表示する
-	for each (Geometry* geo in attackGeometry)
+	for (int i = 0; i < attackGeometry.size();i++)
 	{
-		geo->drawGeometry();
-	}
+		attackGeometry.at(i)->drawGeometry();
+	};
 
 	switch (myState)
 	{
@@ -67,7 +67,7 @@ void Character::update(float delta)
 		break;
 	default:
 		break;
-	}
+	};
 	switch (myAction)
 	{
 	case ACTION::NONE:
@@ -82,7 +82,7 @@ void Character::update(float delta)
 		break;
 	default:
 		break;
-	}
+	};
 };
 
 //移動
