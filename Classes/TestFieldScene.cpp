@@ -35,5 +35,9 @@ bool TestFieldScene::init()
 
 	controller->playerCharacter = character;
 
+	DebugLogOutPut* debug = DebugLogOutPut::create();
+	addChild(debug);
+	debug->setStringPlayer(character, "null\0");
+
 	return true;
 };

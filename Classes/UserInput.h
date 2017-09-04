@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "StaticGameDefinition.h"
 #include "InputButton.h"
+#include "InputVirtualPad.h"
 
 using namespace cocos2d;
 
@@ -12,6 +13,10 @@ class UserInput :public Node
 {
 public:
 	Character* playerCharacter;
+	InputButton *attackButton, *skillButton;
+	InputButton *debugButton;
+	InputVirtualPad *pad;
+
 	struct USER_INPUT 
 	{
 		Vec2 dir;//ˆÚ“®
@@ -27,11 +32,12 @@ public:
 	//mode:0=user,!=com
 	static UserInput* createPlayer(int mode=0);
 	bool init(int mode);
-
+	void update(float delta);
+	void setPlayer(Character* c);
 	void changeMode(int mode);
 
 	void menuCloseCallback(Ref* pSender);
-
+	void userAction(InputButton* b);
 
 };
 

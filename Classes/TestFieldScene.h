@@ -2,6 +2,7 @@
 #define __TEST_FIELD_SCENE_H__
 
 #include "cocos2d.h"
+#include "DebugLogOutPut.h"
 
 using namespace cocos2d;
 

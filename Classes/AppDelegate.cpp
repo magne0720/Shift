@@ -52,7 +52,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
     Size frameSize = glview->getFrameSize();
 	log("frameSize\n[%f,%f]", frameSize.width, frameSize.height);
     // if the frame's height is larger than the height of medium size.

@@ -3,28 +3,13 @@
 
 #include "cocos2d.h"
 #include "AttackManager.h"
+#include "StaticGameDefinition.h"
 
 using namespace cocos2d;
 using namespace std;
 
 
-//キャラの姿勢
-enum class STATE {
-	NONE = -1, STAND = 0, WALK, RUN, SIT, JUMP
-};
 
-//キャラの行動
-enum class ACTION {
-	NONE = -1, ATTACK, SHIFT, SKILL
-};
-
-//パラメーター
-struct PARAMETER
-{
-	char* name;//名前
-	float speed;//移動スピード
-	float shift;//瞬間移動の距離
-};
 
 //キャラクタ
 //登場するキャラの基底クラス

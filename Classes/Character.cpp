@@ -23,11 +23,13 @@ bool Character::init(PARAMETER p)
 	mySprite = Sprite::create();
 	addChild(mySprite);
 
-	setPosition(Vec2(100,100));
+	myPosition = Vec2(100, 100);
+	setPosition(myPosition);
 
 	setSprite("Character/default.png");
 
 	myAction = ACTION::NONE;
+	myState = STATE::WALK;
 
 	attackManager = AttackManager::create();
 	addChild(attackManager);
@@ -35,22 +37,27 @@ bool Character::init(PARAMETER p)
 	scheduleUpdate();
 
 	debugLabel = Label::create();
-	debugLabel->setPosition(Vec2(100, 100));
+	debugLabel->setTextColor(Color4B::RED);
+	debugLabel->setSystemFontSize(120);
+	debugLabel->setPosition(Vec2(200,200));
 	addChild(debugLabel);
 
 	resetTimer();
 
+	log("myAction=%d", myAction);
 	return true;
 };
 
 void Character::update(float delta) 
 {
+
 	//ジオメトリの中があるなら表示する
 	for (int i = 0; i < attackGeometry.size();i++)
 	{
 		attackGeometry.at(i)->drawGeometry();
 	};
 
+	move(moveDirection.x);
 	switch (myState)
 	{
 	case STATE::NONE:
@@ -80,6 +87,10 @@ void Character::update(float delta)
 		break;
 	case ACTION::SKILL:
 		break;
+	case ACTION::DEBUG:
+		myPosition = Vec2(100, 100);
+		myAction = ACTION::NONE;
+		break;
 	default:
 		break;
 	};
@@ -88,16 +99,13 @@ void Character::update(float delta)
 //移動
 void Character::move(float speed) 
 {
-	setPositionX(getPositionX() + speed);
+	myPosition.x += speed;
+	setPosition(myPosition);
 };
 
 //通常攻撃(円判定)
 void Character::attack(ATTACK_ACTION action)
 {
-	//log("%s", action.name);
-	//log("d=%0.2f", delayTimer);
-	//log("k=%0.2f", keepTimer);
-	//log("s=%0.2f", standbyTimer);
 
 	//開始時間を計測
 	if (delayTimer >= 0)
