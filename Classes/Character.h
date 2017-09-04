@@ -2,7 +2,7 @@
 #define __CHARACTER_H__
 
 #include "cocos2d.h"
-#include "AttackManager.h"
+#include "AttackAction.h"
 #include "StaticGameDefinition.h"
 
 using namespace cocos2d;
@@ -18,11 +18,11 @@ using namespace std;
 class Character :public Node
 {
 public:
-	PARAMETER* myParameter;
+	PARAMETER myParameter;
 
 	STATE myState;
 	ACTION myAction;
-	AttackManager* attackManager;
+	Vector<AttackAction*> attackAction;
 	int frontSide;//‚Ç‚¿‚ç‚ğŒü‚¢‚Ä‚¢‚é‚©
 	int refCount;
 	int comboCount;//ƒRƒ“ƒ{‚Ì‰ñ”(Œ»İ‚ÌƒRƒ“ƒ{”)
@@ -50,7 +50,7 @@ public:
 	//ˆÚ“®
 	void move(float speed);
 	//’ÊíUŒ‚
-	void attack(ATTACK_ACTION action);
+	void attack(AttackAction* action);
 	//uŠÔˆÚ“®
 	void shift(float degree);
 	//•KE‹Z

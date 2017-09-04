@@ -15,7 +15,8 @@ using namespace std;
 //	‚SD‚»‚Ì}Œ`‚ªÁ‚¦‚éŠÔ(À¿UŒ‚ŠÔ‚Æ“¯‹`)
 //	‚TDƒRƒ“ƒ{‹–—eŠÔ(‚QI—¹‚©‚çŒv‘ª)
 //	‚UDŸ‚ÌƒRƒ“ƒ{æ‚Ö
-struct ATTACK_ACTION {
+class AttackAction:public Node {
+public:
 	Geometry* obj;
 	char* name;//‚±‚ÌUŒ‚‚Ì–¼‘O
 	float radius;//UŒ‚”ÍˆÍ‚Ì”¼Œa
@@ -29,30 +30,24 @@ struct ATTACK_ACTION {
 	///ACTION_STACK‚Ìİ’è
 	///type=UŒ‚”ÍˆÍ‚ÌŒ`(0:circle,1:line,def:none)
 	///</summary>
-	ATTACK_ACTION(int type,char *name="action",float radius = 1.0f, float delay = 1.0f, float keep = 0.5f, float standby = 2.0f, float powerrate = 1, Vec2 move = Vec2(0, 0), Vec2 distance = Vec2(0, 0)) {
-		obj = GeometryCircle::create(Vec2(0,0),Vec2(0,0));
-		this->name = name;
-		this->radius = radius;
-		this->delay = delay;
-		this->keep = keep;
-		this->standby = standby;
-		this->powerrate = powerrate;
-		this->move = move;
-		this->distance = distance;
-	}
-};
-
-class AttackManager :public Node 
-{
-public:
-	vector<ATTACK_ACTION> attackStack;
-
-	static AttackManager* create();
-	bool init();
-	ATTACK_ACTION getNextAttack();
-	//	static Vector<ACTION_ATTACK_CIRCLE> actions;
-	//static ACTION_ATTACK_CIRCLE* load(char* path);
-	//vector<ACTION_ATTACK_CIRCLE> AttackActions;
+	static AttackAction* create(
+		int count, 
+		char *name = "action",
+		float radius = 1.0f,
+		float delay = 1.0f,
+		float keep = 0.5f,
+		float standby = 2.0f,
+		Vec2 move = Vec2(500, 0),
+		Vec2 distance = Vec2(0, 0));
+	bool init(
+		int count,
+		char *name,
+		float radius,
+		float delay,
+		float keep,
+		float standby,
+		Vec2 move,
+		Vec2 distance);
 };
 
 #endif // !__ACTION_MANAGER_H__

@@ -32,6 +32,7 @@ bool Geometry::init(Vec2 p, Vec2 m)
 
 void Geometry::update(float delta) 
 {
+	log("update_base");
 	drawGeometry();
 };
 
@@ -64,24 +65,31 @@ GeometryCircle* GeometryCircle::create(Vec2 p, Vec2 m)
 
 bool GeometryCircle::init(Vec2 p, Vec2 m) 
 {
-	if (!Geometry::init(p,m))return false;
+	if (!Node::init())return false;
 
 	dn = DrawNode::create();
 	addChild(dn);
 
-	r = 20.0f;
+	r = 100.0f;
+	pos = p;
+	move = m;
 
 	log("GeometryCircle");
 
-	//scheduleUpdate();
+	scheduleUpdate();
 
 	return true;
+};
+
+void GeometryCircle::update(float delta)
+{
+	drawGeometry();
 };
 
 void GeometryCircle::drawGeometry() 
 {
 	dn->clear();
-	dn->drawCircle(pos, r, 0, 360, false, Color4F::GREEN);
+	dn->drawCircle(pos, r, 0, 360, true, Color4F::BLUE);
 };
 
 GeometryLine* GeometryLine::create(Vec2 p, Vec2 m) 
@@ -102,7 +110,7 @@ GeometryLine* GeometryLine::create(Vec2 p, Vec2 m)
 
 bool GeometryLine::init(Vec2 p, Vec2 m) 
 {
-	if (!Geometry::init(p,m))return false;
+	if (!Node::init())return false;
 
 	dn = DrawNode::create();
 	addChild(dn);
@@ -111,9 +119,14 @@ bool GeometryLine::init(Vec2 p, Vec2 m)
 
 	log("GeometryLine");
 
-	//scheduleUpdate();
+	scheduleUpdate();
 
 	return true;
+};
+
+void GeometryLine::update(float delta)
+{
+	drawGeometry();
 };
 
 void GeometryLine::drawGeometry() 

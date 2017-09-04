@@ -31,8 +31,7 @@ bool Character::init(PARAMETER p)
 	myAction = ACTION::NONE;
 	myState = STATE::WALK;
 
-	attackManager = AttackManager::create();
-	addChild(attackManager);
+	myParameter.speed = 3.35f;
 
 	scheduleUpdate();
 
@@ -42,9 +41,13 @@ bool Character::init(PARAMETER p)
 	debugLabel->setPosition(Vec2(200,200));
 	addChild(debugLabel);
 
+	AttackAction* atk = AttackAction::create(5);
+	addChild(atk);
+	attackAction.pushBack(atk);
+
+
 	resetTimer();
 
-	log("myAction=%d", myAction);
 	return true;
 };
 
@@ -57,7 +60,7 @@ void Character::update(float delta)
 		attackGeometry.at(i)->drawGeometry();
 	};
 
-	move(moveDirection.x);
+	move(moveDirection.x*myParameter.speed);
 	switch (myState)
 	{
 	case STATE::NONE:
@@ -80,7 +83,7 @@ void Character::update(float delta)
 	case ACTION::NONE:
 		break;
 	case ACTION::ATTACK:
-		attack(attackManager->getNextAttack());
+		attack(attackAction.at(0));
 		actionClock += delta;
 		break;
 	case ACTION::SHIFT:
@@ -104,27 +107,28 @@ void Character::move(float speed)
 };
 
 //通常攻撃(円判定)
-void Character::attack(ATTACK_ACTION action)
+void Character::attack(AttackAction* action)
 {
 
 	//開始時間を計測
 	if (delayTimer >= 0)
 	{
-		delayTimer = action.delay - actionClock;
+		delayTimer = action->delay - actionClock;
 		debugLabel->setString("delay");
 	}
 	//開始時間が0を下回り次第、持続時間の計測開始
 	//アクションの実行
 	if (delayTimer < 0) 
 	{
-		keepTimer = action.delay+action.keep-actionClock;
-		action.obj->pos = myPosition+frontSide*((1-keepTimer/action.keep)*action.obj->pos+keepTimer/action.keep*action.obj->move);
+		keepTimer = action->delay+action->keep-actionClock;
+		action->obj->pos = ((action->keep-keepTimer)*action->obj->move+keepTimer*action->obj->pos);
+		//action->obj->pos.x += 1.0f;
 		debugLabel->setString("keep");
 	}
 	//持続時間が0を下回り次第、受付時間の計測開始
 	if (keepTimer < 0) 
 	{
-		standbyTimer = action.standby-actionClock;
+		standbyTimer = action->standby-actionClock;
 		debugLabel->setString("standby");
 	}
 	//受付時間中にコマンドが押されていたら次のアクションの設定

@@ -32,6 +32,7 @@ public:
 
 	static GeometryCircle* create(Vec2 p, Vec2 m);
 	bool init(Vec2 p, Vec2 m);
+	void update(float delta);
 	void drawGeometry();
 };
 
@@ -42,6 +43,7 @@ public:
 
 	static GeometryLine* create(Vec2 p, Vec2 m);
 	bool init(Vec2 p, Vec2 m);
+	void update(float delta);
 	void drawGeometry();
 };
 
