@@ -37,7 +37,7 @@ bool TestFieldScene::init()
 
 	DebugLogOutPut* debug = DebugLogOutPut::create();
 	addChild(debug);
-	debug->setStringPlayer(character, "null\0");
+	debug->setStringPlayer(character, &character->isAttack);
 
 	return true;
 };

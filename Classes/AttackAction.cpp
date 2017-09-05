@@ -14,7 +14,6 @@ AttackAction* AttackAction::create(int type,char *name,float radius,float delayf
 		pRet = nullptr;
 		return nullptr;
 	}
-
 };
 
 bool AttackAction::init(int type, char *name, float radius, float delay, float keep, float standby, Vec2 move, Vec2 distance)

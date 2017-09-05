@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "StaticGameDefinition.h"
 #include "Character.h"
+#include "Button.h"
 
 using namespace cocos2d;
 
@@ -11,14 +12,20 @@ class DebugLogOutPut :public Node
 {
 public:
 	Character* debugCharacter;
+	bool *isAttack;
 	Label* playerLabel;
-	char *action;
+	RenderTexture* tex;
+
+	Vector<String*> logs;
+
+	InputButton *speedUpButton, *speedDownButton, *debugButton;
+	SwitchButton*logButton;
 
 	static DebugLogOutPut* create();
 	bool init();
 	void update(float delta);
 
-	void setStringPlayer(Character* character,char* action);//プレイヤーの情報を可視化した場所に設定する
+	void setStringPlayer(Character* character,bool* isAttack);//プレイヤーの情報を可視化した場所に設定する
 	//void setStringAther();
 
 };

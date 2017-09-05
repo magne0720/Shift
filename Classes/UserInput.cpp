@@ -29,9 +29,6 @@ bool UserInput::init(int mode)
 	skillButton->setPosition(Vec2(designResolutionSize.width - skillButton->getBoundingBox().getMaxX(), designResolutionSize.height*0.0f + skillButton->getBoundingBox().getMaxY() + 200));
 	addChild(skillButton);
 
-	debugButton = InputButton::create(ACTION::DEBUG, "skill_on_UI.png", "skill_UI.png");
-	debugButton->setPosition(Vec2(designResolutionSize.width*0.5f, designResolutionSize.height*0.9f));
-	addChild(debugButton);
 
 	pad = InputVirtualPad::create();
 	addChild(pad);
@@ -57,9 +54,7 @@ void UserInput::update(float delta)
 	else if (skillButton->isPut){
 		userAction(skillButton);
 	}
-	else if (debugButton->isPut){
-		userAction(debugButton);
-	}
+
 	else{}
 }
 

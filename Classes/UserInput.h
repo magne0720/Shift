@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "Character.h"
 #include "StaticGameDefinition.h"
-#include "InputButton.h"
+#include "Button.h"
 #include "InputVirtualPad.h"
 
 using namespace cocos2d;
@@ -14,7 +14,6 @@ class UserInput :public Node
 public:
 	Character* playerCharacter;
 	InputButton *attackButton, *skillButton;
-	InputButton *debugButton;
 	InputVirtualPad *pad;
 
 	struct USER_INPUT 

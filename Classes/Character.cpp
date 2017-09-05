@@ -29,7 +29,7 @@ bool Character::init(PARAMETER p)
 	setSprite("Character/default.png");
 
 	myAction = ACTION::NONE;
-	myState = STATE::WALK;
+	myState = STATE::NONE;
 
 	myParameter.speed = 3.35f;
 
@@ -41,9 +41,7 @@ bool Character::init(PARAMETER p)
 	debugLabel->setPosition(Vec2(200,200));
 	addChild(debugLabel);
 
-	AttackAction* atk = AttackAction::create(5);
-	addChild(atk);
-	attackAction.pushBack(atk);
+	isAttack = false;
 
 
 	resetTimer();
@@ -64,10 +62,13 @@ void Character::update(float delta)
 	switch (myState)
 	{
 	case STATE::NONE:
+		setState(STATE::STAND);
 		break;
 	case STATE::STAND:
+		if (moveDirection.x != 0.0f)setState(STATE::WALK);
 		break;
 	case STATE::WALK:
+		if (moveDirection.x == 0.0f)setState(STATE::STAND);
 		break;
 	case STATE::RUN:
 		break;
@@ -82,8 +83,10 @@ void Character::update(float delta)
 	{
 	case ACTION::NONE:
 		break;
+	case ACTION::WAIT:
+		break;
 	case ACTION::ATTACK:
-		attack(attackAction.at(0));
+		attack(nextAction());
 		actionClock += delta;
 		break;
 	case ACTION::SHIFT:
@@ -91,8 +94,6 @@ void Character::update(float delta)
 	case ACTION::SKILL:
 		break;
 	case ACTION::DEBUG:
-		myPosition = Vec2(100, 100);
-		myAction = ACTION::NONE;
 		break;
 	default:
 		break;
@@ -135,12 +136,20 @@ void Character::attack(AttackAction* action)
 	if (standbyTimer > 0 && isCommand) 
 	{
 		resetTimer();
+		isAttack = false;
+		attackAction.at(0)->obj->removeFromParent();
+		attackAction.erase(0);
+		attackGeometry.erase(0);
 		comboCount++;
 	}
 	//受付時間が0を下回り次第、終了する
 	if (standbyTimer < 0) 
 	{
 		resetTimer();
+		isAttack = false;
+		attackAction.at(0)->obj->removeFromParent();
+		attackAction.erase(0);
+		attackGeometry.erase(0);
 		myAction = ACTION::NONE;
 		debugLabel->setString("end");
 		comboCount = 0;
@@ -169,6 +178,23 @@ void Character::setSprite(char* spname)
 	mySprite->setTexture(spname);
 };
 
+//状態変化
+void Character::setState(STATE state)
+{
+	myState = state;
+};
+
+//行動変化
+void Character::setAction(ACTION action)
+{
+	myAction = action;
+};
+
+void Character::addSpeed(float speed)
+{
+	myParameter.speed += speed;
+};
+
 //時間を初期化
 void Character::resetTimer() 
 {
@@ -176,6 +202,26 @@ void Character::resetTimer()
 	keepTimer = 0;
 	standbyTimer = 0;
 	actionClock = 0;
+};	
+
+//次の攻撃方法を探す
+AttackAction* Character::nextAction()
+{
+	if (isAttack)return attackAction.at(0);
+	//空ではないか確認
+	if (attackAction.size() > 0)
+	{
+
+	}
+	//ないとき(基本的にはあるから来ない(デバッグ用))
+	isAttack = true;
+	AttackAction* a = AttackAction::create(0);
+	//あったらそれを返す
+	addChild(a);
+	attackAction.pushBack(a);
+	attackGeometry.pushBack(a->obj);
+	return a;
+	//return AttackAction::create(0);
 };
 
 void Character::pushAction(ACTION action) 
@@ -183,3 +229,8 @@ void Character::pushAction(ACTION action)
 	isCommand = true;
 	myAction = action;
 }
+
+float Character::getSpeed()
+{
+	return myParameter.speed;
+};

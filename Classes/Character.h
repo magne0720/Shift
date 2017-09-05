@@ -33,6 +33,7 @@ public:
 	float standbyTimer;
 	//-----------------------------
 	bool isCommand;//コマンドを押したかどうか
+	bool isAttack;//攻撃中か
 	Sprite* mySprite;//画像
 	Vec2 moveDirection;//向かおうとしている方向
 	Vec2 myPosition;//自身の位置
@@ -58,14 +59,24 @@ public:
 
 	//セッター
 	void setSprite(char* spname);
+	//状態変化
+	void setState(STATE state);
+	//行動変化
+	void setAction(ACTION action);
+	//スピード変化
+	void addSpeed(float speed);
 
 	//時間を初期化
 	void resetTimer();
 
+	//次の攻撃方法を探す
+	AttackAction* nextAction();
 	//攻撃ボタン
 	void pushAction(ACTION action);
 	//コンボ継続
 	void addCombo();
+
+	float getSpeed();
 };
 
 #endif // !__CHARACTER_H__
