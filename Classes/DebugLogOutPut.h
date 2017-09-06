@@ -12,7 +12,6 @@ class DebugLogOutPut :public Node
 {
 public:
 	Character* debugCharacter;
-	bool *isAttack;
 	Label* playerLabel;
 	RenderTexture* tex;
 
@@ -25,7 +24,7 @@ public:
 	bool init();
 	void update(float delta);
 
-	void setStringPlayer(Character* character,bool* isAttack);//プレイヤーの情報を可視化した場所に設定する
+	void setStringPlayer(Character*& character);//プレイヤーの情報を可視化した場所に設定する
 	//void setStringAther();
 
 };

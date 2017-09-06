@@ -39,6 +39,7 @@ bool Character::init(PARAMETER p)
 	debugLabel->setTextColor(Color4B::RED);
 	debugLabel->setSystemFontSize(120);
 	debugLabel->setPosition(Vec2(200,200));
+	debugLabel->enableShadow(Color4B::WHITE);
 	addChild(debugLabel);
 
 	isAttack = false;

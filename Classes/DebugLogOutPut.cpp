@@ -25,6 +25,7 @@ bool DebugLogOutPut::init()
 	playerLabel->setSystemFontSize(48);
 	playerLabel->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 	playerLabel->setPosition(designResolutionSize.width*0.0f, designResolutionSize.height*1.0f);
+	playerLabel->enableShadow(Color4B::WHITE);
 	addChild(playerLabel);
 
 	tex = RenderTexture::create(designResolutionSize.width, designResolutionSize.height);
@@ -59,18 +60,18 @@ void DebugLogOutPut::update(float delta)
 
 	if (logButton->isPut){
 
-		String* log_pos = String::createWithFormat("position,x:%0.1f,y:%0.1f", debugCharacter->myPosition.x, debugCharacter->myPosition.y);
-		String* log_move = String::createWithFormat("move,x:%0.1f,y:%0.1f", debugCharacter->moveDirection.x, debugCharacter->moveDirection.y);
+		//String* log_pos = String::createWithFormat("position,x:%0.1f,y:%0.1f", debugCharacter->myPosition.x, debugCharacter->myPosition.y);
+		//String* log_move = String::createWithFormat("move,x:%0.1f,y:%0.1f", debugCharacter->moveDirection.x, debugCharacter->moveDirection.y);
 		String* log_speed = String::createWithFormat("speed:%0.2f", debugCharacter->getSpeed());
-		String* log_isattack = String::createWithFormat("isAttack[%s]", *isAttack ? "true" : "false");
+		String* log_isattack = String::createWithFormat("isAttack[%s]", debugCharacter->isAttack ? "true" : "false");
 		String* log_actionSize = String::createWithFormat("action_size[%d]", debugCharacter->attackAction.size());
 		String* log_geometrySize = String::createWithFormat("geometry_size[%d]", debugCharacter->attackGeometry.size());
 		String* log_state = String::createWithFormat("state[%s]", getStateName(debugCharacter->myState));
 		String* log_action = String::createWithFormat("action[%s]", getActionName(debugCharacter->myAction));
 
 
-		logs.pushBack(log_pos);
-		logs.pushBack(log_move);
+		//logs.pushBack(log_pos);
+		//logs.pushBack(log_move);
 		logs.pushBack(log_speed);
 		logs.pushBack(log_isattack);
 		logs.pushBack(log_actionSize);
@@ -80,7 +81,7 @@ void DebugLogOutPut::update(float delta)
 
 	}
 
-	String* log_all = String::create("");
+	String* log_all = String::createWithFormat("%s\n",logButton->isPut ? "log_show" : "log_hide");
 
 	for (int i = 0; i<logs.size(); i++)
 	{
@@ -91,8 +92,7 @@ void DebugLogOutPut::update(float delta)
 	logs.clear();
 }
 
-void DebugLogOutPut::setStringPlayer(Character* character, bool* isAttack)
+void DebugLogOutPut::setStringPlayer(Character*& character)
 {
 	this->debugCharacter = character;
-	this->isAttack = isAttack;
 };
