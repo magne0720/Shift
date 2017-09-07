@@ -6,6 +6,12 @@
 
 using namespace cocos2d;
 
+#define LAYER_UI 5
+#define LAYER_CHARACTER 4
+#define LAYER_PARTICLE 3
+#define LAYER_BACKGROUND 2
+#define LAYER_HIDEITEM 1
+
 class TestFieldScene :public Scene {
 public:
 	static TestFieldScene* createScene();

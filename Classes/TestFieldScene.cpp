@@ -29,23 +29,32 @@ bool TestFieldScene::init()
 	Sprite* background = Sprite::create("testbackground.png");
 	background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	background->setPosition(0, 0);
-	la->addChild(background);
+	la->addChild(background,LAYER_UI);
 
+
+	BlendFunc negativeBlend = { GL_ONE_MINUS_DST_COLOR, GL_ZERO };
+	background->setBlendFunc(negativeBlend);
+
+	//BlendFunc addBlend = { GL_SRC_ALPHA, GL_ONE };
+	//background->setBlendFunc(addBlend);
 
 	UserInput* controller=UserInput::createPlayer();
-	addChild(controller);
+	controller->setVisible(false);
+	la->addChild(controller,LAYER_UI);
 
 	Character* character=Character::create(PARAMETER());
-	addChild(character);
+	character->setVisible(false);
+	la->addChild(character, LAYER_CHARACTER);
 
 	controller->playerCharacter = character;
 
-	ParticleLauncher* PL = ParticleLauncher::create(&character->myPosition);
+	ParticleLauncher* PL = ParticleLauncher::create(&this->_position,30);
 	PL->setPosition(designResolutionSize.width*0.5f,designResolutionSize.height*0.5f);
-	addChild(PL);
+	la->addChild(PL, LAYER_PARTICLE);
 
 	DebugLogOutPut* debug = DebugLogOutPut::create();
-	addChild(debug);
+	la->addChild(debug, LAYER_UI);
+	debug->setVisible(false);
 	debug->setStringPlayer(character);
 
 	return true;

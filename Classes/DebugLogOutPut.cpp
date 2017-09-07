@@ -41,6 +41,7 @@ bool DebugLogOutPut::init()
 
 	debugButton = InputButton::create(ACTION::DEBUG, "skill_on_UI.png", "skill_UI.png");
 	debugButton->setPosition(Vec2(designResolutionSize.width*0.6f, designResolutionSize.height*0.9f));
+	debugButton->setVisible(false);
 	addChild(debugButton);
 
 	logButton = SwitchButton::create(ACTION::DEBUG, "log_on_UI.png", "log_off_UI.png");
@@ -54,14 +55,22 @@ bool DebugLogOutPut::init()
 
 void DebugLogOutPut::update(float delta)
 {
-	if (speedDownButton->isPut)debugCharacter->addSpeed(-0.1f);
-	if (speedUpButton->isPut)debugCharacter->addSpeed(0.1f);
-	if (debugButton->isPut)debugCharacter->myPosition = Vec2(100, 100);
+	if (speedDownButton->isPut){
+		debugCharacter->addSpeed(-0.1f);
+		String* log_speedDown = String::createWithFormat("Speed_Down");
+		logs.pushBack(log_speedDown);
+	}
+	if (speedUpButton->isPut){
+		debugCharacter->addSpeed(0.1f);
+		String* log_speedUp = String::createWithFormat("Speed_Up");
+		logs.pushBack(log_speedUp);
+	}
+		if (debugButton->isPut)debugCharacter->myPosition = Vec2(100, 100);
 
 	if (logButton->isPut){
 
-		//String* log_pos = String::createWithFormat("position,x:%0.1f,y:%0.1f", debugCharacter->myPosition.x, debugCharacter->myPosition.y);
-		//String* log_move = String::createWithFormat("move,x:%0.1f,y:%0.1f", debugCharacter->moveDirection.x, debugCharacter->moveDirection.y);
+		String* log_pos = String::createWithFormat("position,x:%0.1f,y:%0.1f", debugCharacter->myPosition.x, debugCharacter->myPosition.y);
+		String* log_move = String::createWithFormat("move,x:%0.1f,y:%0.1f", debugCharacter->moveDirection.x, debugCharacter->moveDirection.y);
 		String* log_speed = String::createWithFormat("speed:%0.2f", debugCharacter->getSpeed());
 		String* log_isattack = String::createWithFormat("isAttack[%s]", debugCharacter->isAttack ? "true" : "false");
 		String* log_actionSize = String::createWithFormat("action_size[%d]", debugCharacter->attackAction.size());
@@ -70,8 +79,8 @@ void DebugLogOutPut::update(float delta)
 		String* log_action = String::createWithFormat("action[%s]", getActionName(debugCharacter->myAction));
 
 
-		//logs.pushBack(log_pos);
-		//logs.pushBack(log_move);
+		logs.pushBack(log_pos);
+		logs.pushBack(log_move);
 		logs.pushBack(log_speed);
 		logs.pushBack(log_isattack);
 		logs.pushBack(log_actionSize);

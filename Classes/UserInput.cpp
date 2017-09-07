@@ -29,7 +29,6 @@ bool UserInput::init(int mode)
 	skillButton->setPosition(Vec2(designResolutionSize.width - skillButton->getBoundingBox().getMaxX(), designResolutionSize.height*0.0f + skillButton->getBoundingBox().getMaxY() + 200));
 	addChild(skillButton);
 
-
 	pad = InputVirtualPad::create();
 	addChild(pad);
 

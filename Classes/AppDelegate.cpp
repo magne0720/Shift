@@ -39,6 +39,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 		//デバッグのときに出力する画面サイズ
 		glview = GLViewImpl::createWithRect("Shift", Rect(0, 0, designResolutionSize.width/2, designResolutionSize.height/2));
+		//glview = GLViewImpl::createWithFullScreen("shift");
 #else
         glview = GLViewImpl::create("Shift");
 #endif
@@ -46,7 +47,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    //director->setDisplayStats(true);
+
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
