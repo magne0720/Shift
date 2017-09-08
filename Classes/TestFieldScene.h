@@ -10,7 +10,8 @@ using namespace cocos2d;
 #define LAYER_CHARACTER 4
 #define LAYER_PARTICLE 3
 #define LAYER_BACKGROUND 2
-#define LAYER_HIDEITEM 1
+#define LAYER_BACKPARTICLE 1
+#define LAYER_HIDEITEM 0
 
 class TestFieldScene :public Scene {
 public:

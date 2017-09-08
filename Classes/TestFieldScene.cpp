@@ -29,32 +29,32 @@ bool TestFieldScene::init()
 	Sprite* background = Sprite::create("testbackground.png");
 	background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	background->setPosition(0, 0);
-	la->addChild(background,LAYER_UI);
-
+	la->addChild(background,LAYER_BACKGROUND);
 
 	BlendFunc negativeBlend = { GL_ONE_MINUS_DST_COLOR, GL_ZERO };
 	background->setBlendFunc(negativeBlend);
 
-	//BlendFunc addBlend = { GL_SRC_ALPHA, GL_ONE };
-	//background->setBlendFunc(addBlend);
-
 	UserInput* controller=UserInput::createPlayer();
-	controller->setVisible(false);
+	//controller->setVisible(false);
 	la->addChild(controller,LAYER_UI);
 
 	Character* character=Character::create(PARAMETER());
-	character->setVisible(false);
+	//character->setVisible(false);
 	la->addChild(character, LAYER_CHARACTER);
 
 	controller->playerCharacter = character;
 
-	ParticleLauncher* PL = ParticleLauncher::create(&this->_position,30);
-	PL->setPosition(designResolutionSize.width*0.5f,designResolutionSize.height*0.5f);
+	ParticleLauncher* PLB = ParticleLauncher::create(&this->_position, 4);
+	PLB->setPosition(designResolutionSize.width*0.5f, designResolutionSize.height*0.5f);
+	la->addChild(PLB, LAYER_BACKPARTICLE);
+
+	ParticleLauncher* PL = ParticleLauncher::create(&this->_position, 5);
+	PL->setPosition(designResolutionSize.width*0.5f, designResolutionSize.height*0.5f);
 	la->addChild(PL, LAYER_PARTICLE);
 
 	DebugLogOutPut* debug = DebugLogOutPut::create();
 	la->addChild(debug, LAYER_UI);
-	debug->setVisible(false);
+	//debug->setVisible(false);
 	debug->setStringPlayer(character);
 
 	return true;
