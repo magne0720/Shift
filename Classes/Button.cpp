@@ -55,18 +55,7 @@ bool InputButton::onTouchBegan(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 
 void InputButton::onTouchMoved(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)
 {
-	Vec2 p = pTouch->getLocation();
-	Vec2 t = getPosition();
-	float col = pow(p.x - t.x, 2) + pow(p.y - t.y, 2);
-	if (col <= buttonRange*buttonRange)
-	{
-		if (!isPut)
-		putbutton(true);
-	}
-	else
-	{
-		putbutton(false);
-	}
+	
 };
 
 void InputButton::onTouchEnded(cocos2d::Touch* pTouch, cocos2d::Event* pEvent)

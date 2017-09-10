@@ -48,9 +48,9 @@ bool TestFieldScene::init()
 	PLB->setPosition(designResolutionSize.width*0.5f, designResolutionSize.height*0.5f);
 	la->addChild(PLB, LAYER_BACKPARTICLE);
 
-	ParticleLauncher* PL = ParticleLauncher::create(&this->_position, 5);
-	PL->setPosition(designResolutionSize.width*0.5f, designResolutionSize.height*0.5f);
-	la->addChild(PL, LAYER_PARTICLE);
+	//ParticleLauncher* PL = ParticleLauncher::create(&this->_position, 5);
+	//PL->setPosition(designResolutionSize.width*0.5f, designResolutionSize.height*0.5f);
+	//la->addChild(PL, LAYER_PARTICLE);
 
 	DebugLogOutPut* debug = DebugLogOutPut::create();
 	la->addChild(debug, LAYER_UI);

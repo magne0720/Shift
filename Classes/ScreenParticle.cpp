@@ -138,7 +138,7 @@ void ParticleGeometry::update(float delta)
 	
 	timer +=speed/100.0f;
 
-	position += direction*speed;
+	//position += direction*speed;
 	setPosition(position);
 };
 

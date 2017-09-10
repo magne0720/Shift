@@ -50,7 +50,7 @@ void UserInput::update(float delta)
 	if (attackButton->isPut){
 		userAction(attackButton);
 	}
-	else if (skillButton->isPut){
+	if (skillButton->isPut){
 		userAction(skillButton);
 	}
 

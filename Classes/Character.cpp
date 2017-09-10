@@ -91,8 +91,12 @@ void Character::update(float delta)
 		actionClock += delta;
 		break;
 	case ACTION::SHIFT:
+		shift(45);
+		myAction = ACTION::WAIT;
 		break;
-	case ACTION::SKILL:
+	case ACTION::SKILL:		
+		shift(sin(moveDirection.x+moveDirection.y));
+		myAction = ACTION::WAIT;
 		break;
 	case ACTION::DEBUG:
 		break;
@@ -166,7 +170,9 @@ void Character::attack(AttackAction* action)
 //èuä‘à⁄ìÆ
 void Character::shift(float degree)
 {
-
+	float sDeg = M_PI*2.0f*(-degree) / 360; 
+	log("sDeg=%0.2f", sDeg);
+	myPosition += Vec2((cos(sDeg) - sin(sDeg)*myParameter.speed*100), (sin(sDeg) + cos(sDeg)*myParameter.speed*100));
 };
 //ïKéEãZ
 void Character::skill(void* skill) 
